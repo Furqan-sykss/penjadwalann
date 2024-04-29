@@ -10,6 +10,16 @@
 </head>
 
 <body style="background: darkgray">
+    <header>
+        <!-- Tampilkan nama pengguna atau nama lengkap -->
+        @auth
+            <div class="text-center text-white">
+                <h4>
+                    Selamat datang, {{ Auth::user()->name }}
+                </h4>
+            </div>
+        @endauth
+    </header>
 
     <div class="container-fluid mt-5">
         <div class="row">

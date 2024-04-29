@@ -38,10 +38,6 @@ class JadwalController extends Controller
                 ->orWhere('no_st_und', 'like', "%$keyword%");
         }
 
-        $jadwals = $jadwals->paginate(10);
-
-        return view('jadwals.index', compact('jadwals'));
-
         // // Inisialisasi array kata kunci yang diizinkan
         // $allowedKeywords = ['apapun', 'masalahnya', 'cintaku', 'tetap', 'kamu'];
 
@@ -66,20 +62,8 @@ class JadwalController extends Controller
         //         }
         //     });
         // }
+        $jadwals = $jadwals->paginate(10);
 
-        // // Ambil 10 data jadwal per halaman
-        // $jadwals = $jadwalsQuery->paginate(10);
-
-        // // Kirim data jadwal ke view
-        // return view('jadwals.index', compact('jadwals'));
-
-
-
-
-        // Ambil semua jadwal dengan urutan terbaru dan paginasi 10 per halaman
-        $jadwals = Jadwal::latest()->paginate(10);
-
-        // Render view dengan data jadwal
         return view('jadwals.index', compact('jadwals'));
     }
 
