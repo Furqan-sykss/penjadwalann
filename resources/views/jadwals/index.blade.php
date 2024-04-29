@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body style="background: lightgray">
+<body style="background: darkgray">
 
     <div class="container-fluid mt-5">
         <div class="row">
@@ -18,9 +18,16 @@
                     <h3 class="text-center my-4">JADWAL KAPUSDATIN 2024-2025</h3>
                     <hr>
                 </div>
-                <div class="card border-0 shadow-sm rounded">
+                <div class="card border-0 shadow-sm rounded" style="background: lightgray">
                     <div class="card-body">
                         <a href="{{ route('jadwals.create') }}" class="btn btn-md btn-success mb-3">ADD JADWAL</a>
+
+                        <form class="d-flex mb-5" role="search" action="{{ route('jadwals.index') }}" method="GET">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                                name="keyword" value="{{ request('keyword') }}">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -59,15 +66,16 @@
                                                     action="{{ route('jadwals.destroy', $jadwal->id) }}"
                                                     method="POST">
                                                     <a href="{{ route('jadwals.show', $jadwal->id) }}"
-                                                        class="btn btn-sm btn-dark">SHOW</a>
+                                                        class="btn btn-sm btn-dark mb-2">SHOW</a>
                                                     <a href="{{ route('jadwals.edit', $jadwal->id) }}"
-                                                        class="btn btn-sm btn-primary">EDIT</a>
+                                                        class="btn btn-sm btn-primary mb-2">EDIT</a>
                                                     <!-- Add WhatsApp Share -->
                                                     <a href="{{ route('jadwals.share', $jadwal->id) }}"
-                                                        class="btn btn-sm btn-success">SHARE</a>
+                                                        class="btn btn-sm btn-success mb-2">SHARE</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger mb-2">HAPUS</button>
                                                 </form>
                                             </td>
                                         </tr>

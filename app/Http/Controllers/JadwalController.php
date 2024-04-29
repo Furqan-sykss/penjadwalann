@@ -22,8 +22,60 @@ class JadwalController extends Controller
      *
      * @return void
      */
-    public function index(): View
+    public function index(Request $request): View
     {
+        $keyword = $request->input('keyword');
+
+        $jadwals = Jadwal::latest();
+
+        if ($keyword) {
+            $jadwals->where('tanggal', 'like', "%$keyword%")
+                ->orWhere('hari', 'like', "%$keyword%")
+                ->orWhere('tujuan', 'like', "%$keyword%")
+                ->orWhere('pemesanan_tiket', 'like', "%$keyword%")
+                ->orWhere('pencairan', 'like', "%$keyword%")
+                ->orWhere('catatan', 'like', "%$keyword%")
+                ->orWhere('no_st_und', 'like', "%$keyword%");
+        }
+
+        $jadwals = $jadwals->paginate(10);
+
+        return view('jadwals.index', compact('jadwals'));
+
+        // // Inisialisasi array kata kunci yang diizinkan
+        // $allowedKeywords = ['apapun', 'masalahnya', 'cintaku', 'tetap', 'kamu'];
+
+        // // Ambil nilai pencarian dari input form
+        // $keyword = $request->input('keyword');
+
+        // // Inisialisasi query utama untuk mengambil data jadwal
+        // $jadwalsQuery = Jadwal::latest();
+
+        // // Periksa apakah kata kunci yang dimasukkan pengguna sesuai dengan yang diizinkan
+        // if ($keyword) {
+        //     // Jika sesuai, lakukan pencarian sesuai dengan kata kunci tersebut
+        //     $jadwalsQuery->where(function ($query) use ($allowedKeywords, $keyword) {
+        //         foreach ($allowedKeywords as $allowedKeyword) {
+        //             $query->orWhere('tanggal', 'like', "%$keyword%")
+        //                 ->orWhere('hari', 'like', "%$keyword%")
+        //                 ->orWhere('tujuan', 'like', "%$keyword%")
+        //                 ->orWhere('pemesanan_tiket', 'like', "%$keyword%")
+        //                 ->orWhere('pencairan', 'like', "%$keyword%")
+        //                 ->orWhere('catatan', 'like', "%$keyword%")
+        //                 ->orWhere('no_st_und', 'like', "%$keyword%");
+        //         }
+        //     });
+        // }
+
+        // // Ambil 10 data jadwal per halaman
+        // $jadwals = $jadwalsQuery->paginate(10);
+
+        // // Kirim data jadwal ke view
+        // return view('jadwals.index', compact('jadwals'));
+
+
+
+
         // Ambil semua jadwal dengan urutan terbaru dan paginasi 10 per halaman
         $jadwals = Jadwal::latest()->paginate(10);
 
