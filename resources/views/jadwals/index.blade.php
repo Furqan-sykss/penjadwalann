@@ -15,7 +15,9 @@
         @auth
             <div class="text-center text-white">
                 <h4>
-                    Selamat datang, {{ Auth::user()->name }}
+                    <b>
+                        Selamat datang, {{ Auth::user()->name }}
+                    </b>
                 </h4>
             </div>
         @endauth
